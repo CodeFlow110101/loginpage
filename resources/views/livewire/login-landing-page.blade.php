@@ -1,10 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 use function Livewire\Volt\{state, layout, mount};
 
 layout('components.layouts.app');
 
+state(['path']);
+
 mount(function () {
+
+    $this->path = request()->route()->getName();
+
     if (Auth::check()) {
         $this->redirectRoute('dashboard', navigate: true);
     }
@@ -13,8 +20,10 @@ mount(function () {
 
 <div class="lg:flex bg-white lg:justify-between lg:gap-10 h-dvh">
     <div class="w-1/2 max-lg:w-full h-full flex justify-center items-center">
-        @if (request()->route()->getName() == 'login')
-            <livewire:login-page />
+        @if ($path == 'login')
+        <livewire:login />
+        @elseif($path == 'sign-up')
+        <livewire:sign-up />
         @endif
     </div>
     <div class="w-1/2 max-lg:hidden h-full p-4">

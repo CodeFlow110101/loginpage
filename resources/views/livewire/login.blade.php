@@ -1,11 +1,17 @@
 <?php
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use function Livewire\Volt\{state, rules, mount};
 
 state(['email' => '', 'password' => '']);
+
 rules(['email' => 'required|email|exists:users', 'password' => 'required|min:6']);
+
+$redirectTo = function ($path) {
+    $this->redirectRoute($path, navigate: true);
+};
 
 $signIn = function (Request $request) {
     $this->validate();
@@ -27,14 +33,14 @@ $signIn = function (Request $request) {
                 class="p-3 border @error('email') border-red-600 bg-red-600 bg-opacity-10 @else border-gray-400 @enderror border-opacity-70 outline-none font-normal text-gray-600 rounded-lg w-full"
                 placeholder="Email">
             @error('email')
-                <span class="error text-red-600">{{ $message }}</span>
+            <span class="error text-red-600">{{ $message }}</span>
             @enderror
         </div>
         <div><input wire:loading.class="pointer-events-none" wire:model="password" type="password"
                 class="p-3 border @error('password') border-red-600 bg-red-600 bg-opacity-10 @else border-gray-400 @enderror border-opacity-70 outline-none font-normal text-gray-600 rounded-lg w-full"
                 placeholder="Password">
             @error('password')
-                <span class="error text-red-600">{{ $message }}</span>
+            <span class="error text-red-600">{{ $message }}</span>
             @enderror
         </div>
         <div class="w-full
@@ -54,11 +60,11 @@ $signIn = function (Request $request) {
             <div class="w-full"></div>
         </div>
         <div>
-            <button wire:loading.class="py-3 cursor-wait pointer-events-none"
+            <button wire:loading.class="py-3 cursor-wait pointer-events-none" wire:target="signIn"
                 class="p-4 bg-gradient-to-r flex justify-center items-center from-cyan-400 to-emerald-400 rounded-lg w-full text-white tracking-tighter font-bold">
-                <div wire:loading.remove>Sign
+                <div wire:loading.remove wire:target="signIn">Sign
                     In</div>
-                <div wire:loading role="status">
+                <div wire:loading role="status" wire:target="signIn">
                     <svg aria-hidden="true" class="w-8 h-8 text-gray-300 animate-spin fill-white" viewBox="0 0 100 101"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -74,7 +80,7 @@ $signIn = function (Request $request) {
         <div class="flex justify-center">
             <div class="flex justify-between w-min whitespace-nowrap gap-2">
                 <div>Don't have an account?</div>
-                <div class="text-emerald-400">Sign up</div>
+                <div wire:click="redirectTo('sign-up')" class="text-emerald-400 cursor-pointer">Sign up</div>
             </div>
         </div>
     </form>
