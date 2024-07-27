@@ -7,7 +7,7 @@ use function Livewire\Volt\{state, mount};
 
 $fetchDataFromCsv = function () {
 
-    $inputFileName = public_path('images/data.csv');
+    $inputFileName = public_path('images/Data.csv');
 
     // Load CSV file
     $spreadsheet = IOFactory::load($inputFileName);
