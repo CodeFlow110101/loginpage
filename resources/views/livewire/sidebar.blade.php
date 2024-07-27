@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use function Livewire\Volt\{mount, state};
 
@@ -51,7 +52,7 @@ mount(function () {
                     </svg>
                 </div>
                 <div class="font-semibold">{{$user->name}}</div>
-                <div>{{$user->date_of_birth}}</div>
+                <div>{{Carbon::parse($user->date_of_birth)->format('d F Y')}}</div>
                 <div>{{$user->profession}}</div>
             </div>
         </div>
