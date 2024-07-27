@@ -42,7 +42,7 @@ $fetchDataFromCsv = function () {
 
 <div class="grid grid-cols-1 gap-6">
     <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6">
-        <div wire:click="fetchDataFromCsv" class="bg-white w-full h-32 rounded-2xl shadow-md"></div>
+        <div class="bg-white w-full h-32 rounded-2xl shadow-md"></div>
         <div class="bg-white w-full h-32 rounded-2xl shadow-md"></div>
         <div class="bg-white w-full h-32 rounded-2xl shadow-md"></div>
         <div class="bg-white w-full h-32 rounded-2xl shadow-md"></div>
