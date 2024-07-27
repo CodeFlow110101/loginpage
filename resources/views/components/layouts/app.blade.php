@@ -23,7 +23,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         flatpickr("#datepicker", {
-            dateFormat: "d-m-Y",
+            dateFormat: "Y-m-d",
         });
     });
 </script>
