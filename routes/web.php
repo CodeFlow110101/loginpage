@@ -9,3 +9,4 @@ Route::get('/', function () {
 Volt::route('/login', 'login-landing-page')->name('login');
 Volt::route('/sign-up', 'login-landing-page')->name('sign-up');
 Volt::route('/dashboard', 'logged-in-landing-page')->name('dashboard');
+Volt::route('/posts', 'logged-in-landing-page')->name('posts');

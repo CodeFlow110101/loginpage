@@ -1,6 +1,10 @@
 <?php
+
 use Illuminate\Http\Request;
-use function Livewire\Volt\{layout, mount};
+use function Livewire\Volt\{layout, mount, state};
+
+state(['path']);
+
 layout('components.layouts.app');
 
 mount(function (Request $request) {
@@ -11,6 +15,8 @@ mount(function (Request $request) {
     if (session()->has('showLoginSuccessToastr')) {
         $this->js("showToastr('success','" . session()->get('showLoginSuccessToastr') . "')");
     }
+
+    $this->path = $request->path();
 });
 ?>
 
@@ -26,9 +32,9 @@ mount(function (Request $request) {
                 <div class="capitalize text-white w-min gap-2 flex tracking-tighter justify-between">
                     <div>Pages</div>
                     <div>/</div>
-                    <div>{{ request()->route()->getName() }}</div>
+                    <div>{{ $path }}</div>
                 </div>
-                <div class="capitalize text-white font-bold tracking-wide">{{ request()->route()->getName() }}</div>
+                <div class="capitalize text-white font-bold tracking-wide">{{ $path }}</div>
             </div>
             <div class="flex justify-between items-center gap-3">
                 <div class="relative">
@@ -51,9 +57,11 @@ mount(function (Request $request) {
             </div>
         </div>
         <div>
+            @if($path=='dashboard')
             <livewire:dashboard />
+            @elseif($path =='posts')
+            <livewire:posts />
+            @endif
         </div>
-        <div class="text-gray-600">© {{ date('Y') }}
-            , Created by CodeFlow All rights reserved</div>
     </div>
 </div>

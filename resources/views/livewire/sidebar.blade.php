@@ -8,6 +8,10 @@ use function Livewire\Volt\{mount, state};
 
 state(['user']);
 
+$redirectTo = function ($path) {
+    $this->redirectRoute($path, navigate: true);
+};
+
 $signOut = function (Request $request) {
     Auth::logout();
     $request->session()->invalidate();
@@ -23,7 +27,7 @@ mount(function () {
 <div :class="toggleSidebar ? 'max-lg:translate-x-0' : 'max-lg:-translate-x-72'"
     class="w-full max-lg:transition-transform max-lg:duration-300 flex justify-center items-center rounded-2xl bg-white">
     <div class="grid grid-cols-1 gap-4 w-full w-4/5 px-6 my-12">
-        <div class="flex justify-between gap-2 p-4 rounded-lg hover:bg-gray-200">
+        <div wire:click="redirectTo('dashboard')" class="flex justify-between gap-2 p-4 rounded-lg hover:bg-gray-200">
             <div class="w-min">
                 <svg class="w-6 h-6 text-indigo-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 24 24">
@@ -32,6 +36,14 @@ mount(function () {
                 </svg>
             </div>
             <div class="w-full text-gray-800">Dashboard</div>
+        </div>
+        <div wire:click="redirectTo('posts')" class="flex justify-between gap-2 p-4 rounded-lg hover:bg-gray-200">
+            <div class="w-min">
+                <svg class="w-6 h-6 text-orange-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 7h1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h11.5M7 14h6m-6 3h6m0-10h.5m-.5 3h.5M7 7h3v3H7V7Z" />
+                </svg>
+            </div>
+            <div class="w-full text-gray-800">Posts</div>
         </div>
         <div wire:click="signOut" class="flex justify-between gap-2 p-4 rounded-lg hover:bg-gray-200">
             <div class="w-min">
@@ -52,8 +64,6 @@ mount(function () {
                     </svg>
                 </div>
                 <div class="font-semibold">{{$user->name}}</div>
-                <div>{{Carbon::parse($user->date_of_birth)->format('d F Y')}}</div>
-                <div>{{$user->profession}}</div>
             </div>
         </div>
     </div>
